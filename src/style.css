@@ -1,0 +1,121 @@
+@import "tailwindcss";
+
+:root {
+  --f1-primary-red: #D80032;
+  --f1-secondary-red: #EF233C;
+  --f1-light-gray: #EDF2F4;
+  --f1-medium-gray: #8D99AE;
+  --f1-dark-blue: #2B2D42;
+}
+
+/* Custom F1 themed classes */
+.f1-primary { @apply bg-[#D80032] text-white; }
+.f1-bg { @apply bg-[#1a1a1a] text-white;}
+.f1-secondary { @apply bg-[#EF233C] text-white; }
+.f1-text-primary { @apply text-[#D80032]; }
+.f1-border-primary { @apply border-[#D80032]; }
+
+/* Custom scrollbar for mobile */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #D80032;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #EF233C;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Tab transitions */
+.tab-transition {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Mobile optimizations */
+@media (max-width: 640px) {
+  .min-h-screen {
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
+  }
+}
+
+/* Add to your main CSS file or Vue component styles */
+:root {
+  /* Base font size - Mobile first approach */
+  --base-font-size: 14px;
+  --scale-factor: 1;
+}
+
+/* Small phones (up to 480px) */
+@media (max-width: 480px) {
+  :root {
+    --base-font-size: 13px;
+    --scale-factor: 1;
+  }
+}
+
+/* Large phones (481px - 768px) */
+@media (min-width: 481px) {
+  :root {
+    --base-font-size: 14px;
+    --scale-factor: 1;
+  }
+}
+
+/* Tablets (769px - 1024px) */
+@media (min-width: 769px) {
+  :root {
+    --base-font-size: 16px;
+    --scale-factor: 1;
+  }
+}
+
+/* Desktop (1025px - 1200px) */
+@media (min-width: 1025px) {
+  :root {
+    --base-font-size: 17px;
+    --scale-factor: 1;
+  }
+}
+
+/* Large Desktop (1201px+) */
+@media (min-width: 1201px) {
+  :root {
+    --base-font-size: 18px;
+    --scale-factor: 1;
+  }
+}
+
+/* Apply to your components */
+body {
+  font-size: var(--base-font-size);
+}
+
+/* Scale headings proportionally */
+h1 { font-size: calc(var(--base-font-size) * 2.5 * var(--scale-factor)); }
+h2 { font-size: calc(var(--base-font-size) * 2 * var(--scale-factor)); }
+h3 { font-size: calc(var(--base-font-size) * 1.5 * var(--scale-factor)); }
+h4 { font-size: calc(var(--base-font-size) * 1.25 * var(--scale-factor)); }
+
+/* Scale component text */
+.text-sm { font-size: calc(var(--base-font-size) * 0.875 * var(--scale-factor)); }
+.text-base { font-size: calc(var(--base-font-size) * 1 * var(--scale-factor)); }
+.text-lg { font-size: calc(var(--base-font-size) * 1.125 * var(--scale-factor)); }
+.text-xl { font-size: calc(var(--base-font-size) * 1.25 * var(--scale-factor)); }
+
+

@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://f1stats.live/sitemap.xml
+
+# Crawl-delay for heavy bots
+User-agent: Bingbot
+Crawl-delay: 1
+
+User-agent: Slurp
+Crawl-delay: 1
+
+# Block certain paths if needed
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow important resources
+Allow: /css/
+Allow: /js/
+Allow: /images/
+Allow: /assets/
