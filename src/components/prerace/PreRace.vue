@@ -5,7 +5,7 @@
       :description="`Comprehensive pre-race analysis for ${next_race_name}. Circuit layout, weather forecast, driver form, qualifying predictions, and race schedule information.`"
       :keywords="`${next_race_name}, ${circuit_name}, F1 pre-race, qualifying predictions, circuit analysis, race forecast, F1 ${current_year}`"
       :structured_data="prerace_structured_data"
-      :type="'article'"
+      type="article"
     />
     <!-- Header Component -->
     <Header :customTitle="'Next Race Grand Prix'"/>
@@ -131,30 +131,46 @@ export default {
     }
   },
 
-  prerace_structured_data() {
-    const race = this.race_store.next_race
-    if (!race) return {}
+  computed:{
+    next_race_name() {
+      return this.race_store.next_race?.raceName || 'Next Formula 1 Race'
+    },
     
-    return {
-      '@type': 'SportsEvent',
-      'name': race.raceName,
-      'description': `Formula 1 ${race.raceName} pre-race analysis and insights`,
-      'startDate': race.date + 'T' + race.time,
-      'location': {
-        '@type': 'Place',
-        'name': race.Circuit?.circuitName,
-        'address': {
-          '@type': 'PostalAddress',
-          'addressLocality': race.Circuit?.Location?.locality,
-          'addressCountry': race.Circuit?.Location?.country
+    circuit_name() {
+      return this.race_store.next_race?.Circuit?.circuitName || 'F1 Circuit'
+    },
+    
+    current_year() {
+      return new Date().getFullYear()
+    },
+    
+    prerace_structured_data() {
+      const race = this.race_store.next_race
+      if (!race) return {}
+      
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'SportsEvent',
+        'name': race.raceName,
+        'description': `Formula 1 ${race.raceName} pre-race analysis and insights`,
+        'startDate': race.date + 'T' + race.time,
+        'location': {
+          '@type': 'Place',
+          'name': race.Circuit?.circuitName,
+          'address': {
+            '@type': 'PostalAddress',
+            'addressLocality': race.Circuit?.Location?.locality,
+            'addressCountry': race.Circuit?.Location?.country
+          }
+        },
+        'organizer': {
+          '@type': 'Organization',
+          'name': 'Formula 1'
         }
-      },
-      'organizer': {
-        '@type': 'Organization',
-        'name': 'Formula 1'
       }
     }
   }
+
 }
 </script>
 

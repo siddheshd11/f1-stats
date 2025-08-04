@@ -1,12 +1,13 @@
 <template>
   <div class="min-h-screen bg-gray-900">
     <SEOMeta
-      :title="`${next_race_name} - Pre-Race Analysis | F1 Analytics`"
-      :description="`Comprehensive pre-race analysis for ${next_race_name}. Circuit layout, weather forecast, driver form, qualifying predictions, and race schedule information.`"
-      :keywords="`${next_race_name}, ${circuit_name}, F1 pre-race, qualifying predictions, circuit analysis, race forecast, F1 ${current_year}`"
-      :structured_data="prerace_structured_data"
-      :type="'article'"
+      :title="`${last_race_name} Results & Analysis | F1 Analytics`"
+      :description="`Complete ${last_race_name} race results, telemetry analysis, driver performance, team standings, and post-race insights. ${race_winner} victory details.`"
+      :keywords="`${last_race_name}, F1 results, ${race_winner}, race analysis, telemetry data, driver standings, team results, F1 ${current_year}`"
+      :structured_data="postrace_structured_data"
+      type="article"
     />
+    
     <!-- Header Component -->
     <Header :customTitle="'Post Race Analysis'"/>
     
@@ -117,28 +118,33 @@ export default {
     }
   },
 
-  computed:{
+  computed: {
     last_race_name() {
       return this.race_store.previous_race?.raceName || 'Latest Formula 1 Race'
     },
     
     race_winner() {
-      // Get winner from race results
-      return this.race_results?.[0]?.Driver?.familyName || 'F1 Champion'
+      const winner = this.race_store.race_results?.[0]
+      return winner ? `${winner.Driver?.givenName} ${winner.Driver?.familyName}` : 'F1 Champion'
     },
-
+    
+    current_year() {
+      return new Date().getFullYear()
+    },
+    
     postrace_structured_data() {
       const race = this.race_store.previous_race
-      const winner = this.race_results?.[0]
+      const winner = this.race_store.race_results?.[0]
       
       if (!race) return {}
       
       return {
+        '@context': 'https://schema.org',
         '@type': 'SportsEvent',
         'name': race.raceName,
         'description': `Formula 1 ${race.raceName} race results and analysis`,
         'startDate': race.date + 'T' + race.time,
-        'endDate': race.date + 'T' + race.time, // Add actual end time if available
+        'endDate': race.date + 'T' + race.time,
         'location': {
           '@type': 'Place',
           'name': race.Circuit?.circuitName,
